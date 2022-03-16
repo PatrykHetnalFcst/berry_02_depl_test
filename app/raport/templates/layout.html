@@ -1,0 +1,75 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<html lang="en">
+
+    {# head #}
+    {% block head %}
+        <head>
+            <title> Berry </title>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <link href="https://fonts.googleapis.com/css?family=Sansita" rel="stylesheet">
+            <link rel="stylesheet" type= "text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+            <link rel="stylesheet" type= "text/css" href="{{ url_for('static',filename='styles/mainpage.css') }}">
+        </head>
+    {% endblock head %}
+
+    {# body #}
+    {% block body %}
+    <body>
+    <div class="wrapper">
+        {# navigation bar #}
+        {% block navbar %}
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <a class="navbar-brand title" href="{{ url_for('main.wyslij') }}">Raporty dzienne</a>
+
+                <ul class="nav navbar-nav pull-right nav-list">
+                    <li><a href="{{ url_for('main.index')}}"> Home </a></li>
+                    <li>
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('authentication.log_out_user')}}"> Wyloguj </a>
+                        {% else %}
+                            <a href="{{ url_for('authentication.do_the_login')}}"> Zaloguj </a>
+                        {% endif %}
+                    </li>
+
+                    <li>
+                        <a>
+                            {% if current_user.is_authenticated %}
+                                Ceść <b style="color: deepink">{{ current_user.user_name.title() }}</b>
+                            {% else %}
+                                Nie jesteś zalogowany
+                            {% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% endblock navbar %}
+
+        {# flash messaging #}
+        {% for message in get_flashed_messages() %}
+            <div class="container alert alert-info">
+                <button type="button" class="close" data-dismiss="alert"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# empty block for custom content #}
+        {% block content %} {% endblock content %}
+
+        {# footer #}
+        {% block footer %}
+        <footer>
+            <div class="container ftr">
+                <hr>
+                <p class="text-center small"> Berry &copy;	| 2022 </p>
+            </div>
+        </footer>
+        {% endblock footer %}
+
+    </div>
+    </body>
+    {% endblock body %}
+</html>

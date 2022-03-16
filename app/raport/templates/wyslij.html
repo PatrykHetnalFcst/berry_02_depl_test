@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+    <div>
+        <h3>Stan wyjściowy to:</h3>
+        {% for s in stany_wyjsciowe %}
+            <p>{{ s.stan_wyjsciowy }} sztuk {{ s.towar }} na stoisku {{s.stoisko}}</p>
+        {% endfor %}
+
+    </div>
+<!--
+    <div>
+        <h3>Stoiska to:</h3>
+        {% for s in stoiska_kierowcy %}
+            <p>{{s.stoisko}}</p>
+        {% endfor %}
+
+    </div>
+-->
+    <div>
+        <form method="POST">
+            {{form.hidden_tag()}}
+
+            {{form.stoisko_k.label}}
+            <br>
+            {% for subfield in form.stoisko_k %}
+            <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+            </tr>
+            {% endfor %}
+            <br>
+
+            {{form.godzina.label}}
+            <br>
+            {% for subfield in form.godzina %}
+            <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+            </tr>
+            {% endfor %}
+            <br>
+            {{form.sprzedane_tulipany.label}}{{form.sprzedane_tulipany}}
+            <br>
+            {{form.sprzedane_roze.label}}{{form.sprzedane_roze}}
+            <br>
+            {{form.submit()}}
+        </form>
+    </div>
+
+{% endblock content %}
