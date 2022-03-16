@@ -1,4 +1,6 @@
+import os
+
 DEBUG = False
 SECRET_KEY = 'mykey_berry_2022'
-SQLALCHEMY_DATABASE_URI='postgresql://postgres:TheKellind1@localhost/berry_test_1'
+SQLALCHEMY_DATABASE_URI=os.environ['DATABASE_URL']
 SQLALCHEMY_TRACK_MODIFICATIONS=False
